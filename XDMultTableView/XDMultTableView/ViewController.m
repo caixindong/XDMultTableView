@@ -65,6 +65,7 @@
     return @"我是头部";
 }
 
+#pragma mark - delegate
 - (CGFloat)mTableView:(XDMultTableView *)mTableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     return 50;
 }

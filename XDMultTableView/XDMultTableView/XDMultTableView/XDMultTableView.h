@@ -236,5 +236,9 @@ typedef NS_ENUM(NSInteger, XDMultTableViewCellEditingStyle) {
 - (NSString *)mTableView:(XDMultTableView *)mTableView titleForDeleteConfirmationButtonForRowAtIndexPath:(NSIndexPath *)indexPath;
 
 
+/**
+ *  ...易拓展出你想要的tableview的功能，写法可以参照上面的定义
+ */
+
 @end
 

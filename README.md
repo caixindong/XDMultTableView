@@ -5,7 +5,7 @@
 
 #How To Use
 
-##Init XDDropDownMenu
+##Init XDMultTableView
 ```ObjC
 #import "XDMultTableView.h"
 ...

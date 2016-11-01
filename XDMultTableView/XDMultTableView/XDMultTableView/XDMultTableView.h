@@ -29,9 +29,20 @@ typedef NS_ENUM(NSInteger, XDMultTableViewCellEditingStyle) {
 
 @property (nonatomic, assign, readwrite) id<XDMultTableViewDelegate> delegate;
 
+
+/**
+ 若为YES，则点开一行，其他行关闭,默认为YES
+ */
+@property (nonatomic, assign, readwrite) BOOL autoAdjustOpenAndClose;
+
+/**
+ 预先打开的行数组
+ */
 @property (nonatomic, copy, readwrite) NSArray *openSectionArray;
 
 @property (nonatomic, strong, readwrite) UIView *tableViewHeader;
+
+
 
 /**
  *  Cell重用机制（一）

@@ -13,6 +13,7 @@ static const CGFloat CELLHEIGHT = 44.0f;
 #define DEFAULTHEADVIEWCOLOR [UIColor colorWithRed:229/255.f green:229/255.f blue:229/255.f alpha:1]
 
 @interface XDMultTableView()
+
 @property (nonatomic, strong, readwrite) NSMutableArray *multopenSectionArray;
 
 @end
@@ -22,6 +23,7 @@ static const CGFloat CELLHEIGHT = 44.0f;
 - (instancetype)initWithFrame:(CGRect)frame{
     if ([super initWithFrame:frame]) {
         _multopenSectionArray = [NSMutableArray arrayWithCapacity:10];
+        _autoAdjustOpenAndClose = YES;
         
         _tableView = [[UITableView alloc] initWithFrame:self.bounds];
         _tableView.delegate = self;
@@ -206,6 +208,20 @@ static const CGFloat CELLHEIGHT = 44.0f;
             imageView.transform = CGAffineTransformMakeRotation(-M_PI/2);
         }];
     }else{
+        if (_autoAdjustOpenAndClose) {
+            [[_multopenSectionArray copy] enumerateObjectsUsingBlock:^(NSNumber *obj, NSUInteger idx, BOOL * _Nonnull stop) {
+                NSLog(@"%ld",[obj integerValue]);
+                NSArray *otherDeleteArray = [self buildDeleteRowWithSection:[obj integerValue]];
+                [_multopenSectionArray removeObject:obj];
+                [_tableView deleteRowsAtIndexPaths:otherDeleteArray withRowAnimation:UITableViewRowAnimationFade];
+                UIView *otherView = [self.tableView viewWithTag:[obj integerValue]];
+                UIImageView *imageView = (UIImageView *)[otherView viewWithTag:100];
+                [UIView animateWithDuration:0.3 animations:^{
+                    imageView.transform = CGAffineTransformMakeRotation(-M_PI/2);
+                }];
+            }];
+        }
+
         [_multopenSectionArray addObject:sectionObj];
         NSArray *insertArray = [self buildInsertRowWithSection:section];
         [_tableView insertRowsAtIndexPaths:insertArray withRowAnimation:UITableViewRowAnimationFade];
@@ -315,12 +331,13 @@ static const CGFloat CELLHEIGHT = 44.0f;
 }
 
 #pragma mark - setter and getter
-- (void)setOpenSectionArray:(NSArray *)openSectionArray{
+- (void)setOpenSectionArray:(NSArray *)openSectionArray {
     _multopenSectionArray = [NSMutableArray arrayWithArray:openSectionArray];
 }
 
-- (void)setTableViewHeader:(UIView *)tableViewHeader{
+- (void)setTableViewHeader:(UIView *)tableViewHeader {
     self.tableView.tableHeaderView = tableViewHeader;
 }
+
 
 @end

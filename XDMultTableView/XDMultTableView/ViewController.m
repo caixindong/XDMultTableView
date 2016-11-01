@@ -29,6 +29,7 @@
     _tableView.delegate = self;
     _tableView.datasource = self;
     _tableView.backgroundColor = [UIColor whiteColor];
+    _tableView.autoAdjustOpenAndClose = NO;
     [self.view addSubview:_tableView];
 }
 
